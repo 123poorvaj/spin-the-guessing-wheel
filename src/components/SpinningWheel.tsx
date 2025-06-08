@@ -22,30 +22,18 @@ const SpinningWheel = ({
 }: SpinningWheelProps) => {
   const [rotation, setRotation] = useState(0);
 
-  // Display numbers around the wheel (showing first 20 numbers for visibility)
-  const displayNumbers = Array.from({length: 20}, (_, i) => i + 1);
-  
-  const segmentColors = [
-    'bg-red-500',
-    'bg-orange-500', 
-    'bg-yellow-500',
-    'bg-green-500',
-    'bg-emerald-500',
-    'bg-cyan-500',
-    'bg-blue-500',
-    'bg-indigo-500',
-    'bg-purple-500',
-    'bg-pink-500',
-    'bg-rose-500',
-    'bg-teal-500',
-    'bg-lime-500',
-    'bg-amber-500',
-    'bg-violet-500',
-    'bg-fuchsia-500',
-    'bg-sky-500',
-    'bg-slate-500',
-    'bg-gray-500',
-    'bg-zinc-500'
+  // Create 10 segments like in the reference image
+  const segments = [
+    { number: 1, color: 'bg-red-500' },
+    { number: 2, color: 'bg-orange-500' },
+    { number: 3, color: 'bg-yellow-400' },
+    { number: 4, color: 'bg-green-500' },
+    { number: 5, color: 'bg-emerald-600' },
+    { number: 6, color: 'bg-cyan-500' },
+    { number: 7, color: 'bg-blue-600' },
+    { number: 8, color: 'bg-purple-600' },
+    { number: 9, color: 'bg-violet-600' },
+    { number: 10, color: 'bg-pink-500' }
   ];
 
   useEffect(() => {
@@ -71,54 +59,54 @@ const SpinningWheel = ({
               transitionDuration: isSpinning ? '3s' : '0.5s'
             }}
           >
-            {/* Number segments */}
-            {displayNumbers.map((number, index) => {
-              const angle = (360 / displayNumbers.length) * index;
-              const isUsed = usedNumbers.includes(number);
+            {/* Number segments - 10 segments like the reference */}
+            {segments.map((segment, index) => {
+              const angle = (360 / segments.length) * index;
+              const isUsed = usedNumbers.includes(segment.number);
               
               return (
                 <div
-                  key={number}
-                  className={`absolute w-full h-full ${segmentColors[index % segmentColors.length]} ${
+                  key={segment.number}
+                  className={`absolute w-full h-full ${segment.color} ${
                     isUsed ? 'opacity-30' : ''
                   }`}
                   style={{
-                    clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos((angle + 18) * Math.PI / 180)}% ${50 - 50 * Math.sin((angle + 18) * Math.PI / 180)}%)`,
+                    clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos((angle + 36) * Math.PI / 180)}% ${50 - 50 * Math.sin((angle + 36) * Math.PI / 180)}%)`,
                     transform: `rotate(${angle}deg)`
                   }}
                 >
                   <div 
-                    className="absolute text-white font-bold text-lg flex items-center justify-center"
+                    className="absolute text-white font-bold text-2xl flex items-center justify-center"
                     style={{
-                      top: '15%',
+                      top: '20%',
                       left: '45%',
-                      transform: `rotate(${-angle + 9}deg)`,
-                      width: '20px',
-                      height: '20px'
+                      transform: `rotate(${-angle + 18}deg)`,
+                      width: '30px',
+                      height: '30px'
                     }}
                   >
-                    {number}
+                    {segment.number}
                   </div>
                 </div>
               );
             })}
           </div>
 
-          {/* Center Hub */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center shadow-lg z-10">
-            <span className="text-white font-bold text-sm">SPIN</span>
+          {/* Center Hub - Dark circle with "Spin" text */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gray-900 rounded-full flex items-center justify-center shadow-lg z-10 border-2 border-white">
+            <span className="text-white font-bold text-sm">Spin</span>
           </div>
 
-          {/* Pointer */}
+          {/* Pointer - pointing downward */}
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 z-20">
-            <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-yellow-400 drop-shadow-lg"></div>
+            <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-white drop-shadow-lg"></div>
           </div>
         </div>
 
         {/* Roll Number Display */}
         {result && !isSpinning && (
           <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-6 py-3 rounded-full font-bold text-xl shadow-lg animate-bounce">
-            Roll Number: {result}
+            Roll Number {result} please come on the stage
           </div>
         )}
       </div>
@@ -146,7 +134,7 @@ const SpinningWheel = ({
       {/* Available Numbers Info */}
       <div className="text-white/70 text-sm text-center">
         <p>Available numbers: {availableNumbers.length}/56</p>
-        <p className="text-xs mt-1">Showing numbers 1-20 on wheel (all 56 numbers available for selection)</p>
+        <p className="text-xs mt-1">Showing numbers 1-10 on wheel (all 56 numbers available for selection)</p>
       </div>
     </div>
   );
