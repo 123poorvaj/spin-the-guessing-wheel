@@ -45,10 +45,10 @@ const SpinningWheel = ({
   }, [isSpinning]);
 
   return (
-    <div className="flex flex-col items-center space-y-8">
+    <div className="flex flex-col items-center space-y-4 sm:space-y-8 w-full max-w-md mx-auto">
       {/* Wheel Container */}
       <div className="relative flex items-center justify-center">
-        <div className="relative w-96 h-96">
+        <div className="relative w-72 h-72 sm:w-96 sm:h-96">
           {/* Main Wheel with segments */}
           <div 
             className={`w-full h-full rounded-full relative overflow-hidden shadow-2xl transition-transform duration-3000 ease-out border-4 border-white ${
@@ -76,7 +76,7 @@ const SpinningWheel = ({
                   }}
                 >
                   <div 
-                    className="absolute text-white font-bold text-2xl flex items-center justify-center"
+                    className="absolute text-white font-bold text-xl sm:text-2xl flex items-center justify-center"
                     style={{
                       top: '20%',
                       left: '45%',
@@ -93,30 +93,30 @@ const SpinningWheel = ({
           </div>
 
           {/* Center Hub - Dark circle with "Spin" text */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gray-900 rounded-full flex items-center justify-center shadow-lg z-10 border-2 border-white">
-            <span className="text-white font-bold text-sm">Spin</span>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 sm:w-24 sm:h-24 bg-gray-900 rounded-full flex items-center justify-center shadow-lg z-10 border-2 border-white">
+            <span className="text-white font-bold text-xs sm:text-sm">Spin</span>
           </div>
 
           {/* Pointer - pointing downward */}
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 z-20">
-            <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-white drop-shadow-lg"></div>
+            <div className="w-0 h-0 border-l-3 border-r-3 border-b-6 sm:border-l-4 sm:border-r-4 sm:border-b-8 border-l-transparent border-r-transparent border-b-white drop-shadow-lg"></div>
           </div>
         </div>
 
         {/* Roll Number Display */}
         {result && !isSpinning && (
-          <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-6 py-3 rounded-full font-bold text-xl shadow-lg animate-bounce">
+          <div className="absolute -bottom-12 sm:-bottom-16 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full font-bold text-base sm:text-xl shadow-lg animate-bounce mx-2 text-center">
             Roll Number {result} please come on the stage
           </div>
         )}
       </div>
 
       {/* Controls */}
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full px-4 sm:px-0">
         <Button 
           onClick={onSpin}
           disabled={isSpinning || availableNumbers.length === 0}
-          className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-3 px-8 text-lg"
+          className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-bold py-4 px-6 sm:py-3 sm:px-8 text-base sm:text-lg min-h-[48px] touch-manipulation flex-1"
         >
           {isSpinning ? 'Spinning...' : availableNumbers.length === 0 ? 'All Numbers Used!' : 'Spin the Wheel!'}
         </Button>
@@ -124,7 +124,7 @@ const SpinningWheel = ({
         <Button 
           onClick={onReset}
           variant="outline"
-          className="bg-white/10 border-white/30 text-white hover:bg-white/20 py-3 px-6"
+          className="bg-white/10 border-white/30 text-white hover:bg-white/20 py-4 px-6 sm:py-3 sm:px-6 min-h-[48px] touch-manipulation"
         >
           <RotateCcw className="w-4 h-4 mr-2" />
           Reset
@@ -132,9 +132,9 @@ const SpinningWheel = ({
       </div>
 
       {/* Available Numbers Info */}
-      <div className="text-white/70 text-sm text-center">
-        <p>Available numbers: {availableNumbers.length}/56</p>
-        <p className="text-xs mt-1">Showing numbers 1-10 on wheel (all 56 numbers available for selection)</p>
+      <div className="text-white/70 text-sm text-center px-4">
+        <p className="text-base sm:text-sm">Available numbers: {availableNumbers.length}/56</p>
+        <p className="text-xs mt-1 hidden sm:block">Showing numbers 1-10 on wheel (all 56 numbers available for selection)</p>
       </div>
     </div>
   );
