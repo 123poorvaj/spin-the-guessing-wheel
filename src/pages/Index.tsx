@@ -43,9 +43,6 @@ const Index = () => {
           <h1 className="text-5xl font-bold text-white mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
             Who is Lucky Student
           </h1>
-          <p className="text-xl text-gray-300">
-            Spin the wheel to find out! Numbers 1-56, no repeats until reset.
-          </p>
         </header>
 
         <div className="flex justify-center">
